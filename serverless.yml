@@ -19,7 +19,7 @@ provider:
         - "*"
 
 functions:
-  getTestStations:
+  main:
     handler: src/handler.handler
     events:
       - http:
