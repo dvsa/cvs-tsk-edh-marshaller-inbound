@@ -2,9 +2,7 @@
   "testStationAccessNotes": "Phasellus",
   "testStationAddress": "224 Tennyson",
   "testStationContactNumber": "+33 111 111 9783",
-  "testStationEmails": [
-    "demo@nonprod.cvs.dvsacloud.uk"
-  ],
+  "testStationEmails": ["demo@nonprod.cvs.dvsacloud.uk"],
   "testStationGeneralNotes": "Maecenas",
   "testStationId": "1",
   "testStationLatitude": 43.4945737,

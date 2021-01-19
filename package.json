@@ -10,7 +10,7 @@
     "npm": "5.6.0"
   },
   "scripts": {
-    "start": "node_modules/serverless/bin/serverless invoke local -f main --path tests/resources/stream-event.json",
+    "start": "serverless invoke local -f main --path tests/resources/stream-event.json",
     "start:docker": "docker-compose -f docker-compose.yml up -d",
     "build": "node_modules/typescript/bin/tsc --rootDir ./ --outDir .build --sourceMap false && npm run build:copy",
     "build:dev": "node_modules/typescript/bin/tsc && npm run build:copy",
@@ -39,8 +39,8 @@
     "jest": "^25.5.4",
     "jest-plugin-context": "^2.9.0",
     "jest-sonar-reporter": "^2.0.0",
-    "lodash": "^4.17.15",
-    "serverless": "^1.69.0",
+    "lodash": "^4.17.20",
+    "serverless": "^2.19.0",
     "serverless-offline": "^6.1.4",
     "serverless-plugin-tracing": "^2.0.0",
     "serverless-plugin-typescript": "^1.1.9",
@@ -53,7 +53,7 @@
     "aws-xray-sdk": "^3.0.0",
     "js-yaml": "^3.13.1",
     "node-yaml": "^3.2.0",
-    "openapi-enforcer": "^1.10.3",
+    "openapi-enforcer": "^1.12.5",
     "path-parser": "^6.1.0"
   },
   "jestSonar": {
