@@ -69,6 +69,7 @@
   },
   "husky": {
     "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
       "pre-commit": "npm run security-checks && npm run audit && npm run lint",
       "pre-push": "npm run prepush"
     }
