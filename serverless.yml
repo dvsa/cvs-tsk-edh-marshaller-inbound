@@ -1,5 +1,4 @@
-service:
-  name: cvs-tsk-edh-marshaller-inbound
+service: cvs-tsk-edh-marshaller-inbound
 
 plugins:
   - serverless-offline
@@ -8,15 +7,17 @@ plugins:
 
 provider:
   name: aws
-  runtime: nodejs10.20.1
+  runtime: nodejs14.x
   tracing: true # enable tracing
-  iamRoleStatements:
-    - Effect: "Allow"
-      Action:
-        - "xray:PutTraceSegments"
-        - "xray:PutTelemetryRecords"
-      Resource:
-        - "*"
+  iam:
+    role:
+      statements:
+        - Effect: "Allow"
+          Action:
+            - "xray:PutTraceSegments"
+            - "xray:PutTelemetryRecords"
+          Resource:
+            - "*"
 
 functions:
   getTestStations:
