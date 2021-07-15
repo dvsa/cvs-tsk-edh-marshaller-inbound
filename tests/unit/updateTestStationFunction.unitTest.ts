@@ -1,16 +1,16 @@
-import {cloneDeep} from "lodash";
-import {CHANGE, ERROR, TARGET} from "../../src/models/enums";
-import {MarshallingService} from "../../src/services/MarshallingService";
-import {updateTestStation} from "../../src/functions/updateTestStation";
+import { cloneDeep } from "lodash";
+import { CHANGE, ERROR, TARGET } from "../../src/models/enums";
+import { MarshallingService } from "../../src/services/MarshallingService";
+import { updateTestStation } from "../../src/functions/updateTestStation";
 
 describe("createTestStation function", () => {
   const event = {
-    body: {something: "good"},
+    body: { something: "good" },
     pathParameters: {
-      testStationId: "abc123"
+      testStationId: "abc123",
     },
-    headers: []
-  }
+    headers: [],
+  };
 
   describe("with no payload (at all)", () => {
     const emptyEvent = cloneDeep(event);
@@ -19,7 +19,7 @@ describe("createTestStation function", () => {
       expect.assertions(1);
       // @ts-ignore
       await updateTestStation(emptyEvent).catch((e) => {
-        expect(e.message).toEqual(ERROR.INVALID_PAYLOAD)
+        expect(e.message).toEqual(ERROR.INVALID_PAYLOAD);
       });
     });
   });
@@ -31,19 +31,26 @@ describe("createTestStation function", () => {
       expect.assertions(1);
       // @ts-ignore
       await updateTestStation(emptyEvent).catch((e) => {
-        expect(e.message).toEqual(ERROR.INVALID_PATH_PARAM)
+        expect(e.message).toEqual(ERROR.INVALID_PATH_PARAM);
       });
     });
   });
 
   describe("with payload and testStationId in pathParameters", () => {
     it("invoked the processRequest function", async () => {
-      const svc = jest.spyOn(MarshallingService.prototype, "processRequest").mockResolvedValue(Promise.resolve())
+      const svc = jest
+        .spyOn(MarshallingService.prototype, "processRequest")
+        .mockResolvedValue(Promise.resolve());
       expect.assertions(2);
       // @ts-ignore
-      await updateTestStation(event)
+      await updateTestStation(event);
       expect(svc).toHaveBeenCalledTimes(1);
-      expect(svc).toHaveBeenCalledWith(event.body, TARGET.TEST_STATIONS, CHANGE.UPDATE, event.pathParameters.testStationId);
+      expect(svc).toHaveBeenCalledWith(
+        event.body,
+        TARGET.TEST_STATIONS,
+        CHANGE.UPDATE,
+        event.pathParameters.testStationId
+      );
     });
   });
 });

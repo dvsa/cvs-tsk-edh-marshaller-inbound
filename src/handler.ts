@@ -1,8 +1,8 @@
-import {Path} from "path-parser";
+import { Path } from "path-parser";
 import { Configuration } from "./utils/Configuration";
-import {Context} from "aws-lambda";
-import {IFunctionConfig} from "./models";
-import {ERROR} from "./models/enums";
+import { Context } from "aws-lambda";
+import { IFunctionConfig } from "./models";
+import { ERROR } from "./models/enums";
 
 const handler = async (event: any, context: Context) => {
   // Request integrity checks
@@ -27,15 +27,18 @@ const handler = async (event: any, context: Context) => {
   const functions: IFunctionConfig[] = config.getFunctions();
   const serverlessConfig = config.getConfig().serverless;
 
-  const matchingLambdaEvents: IFunctionConfig[] = functions.filter((fn: IFunctionConfig) => {
-    // Find λ with matching httpMethod
-    return event.httpMethod === fn.method;
-  })
+  const matchingLambdaEvents: IFunctionConfig[] = functions
+    .filter((fn: IFunctionConfig) => {
+      // Find λ with matching httpMethod
+      return event.httpMethod === fn.method;
+    })
     .filter((fn: IFunctionConfig) => {
       // Find λ with matching path
       const localPath: Path = new Path(fn.path);
-      const remotePath: Path = new Path(`${serverlessConfig.basePath}${fn.path}`); // Remote paths also have environment
-      return (localPath.test(event.path) || remotePath.test(event.path));
+      const remotePath: Path = new Path(
+        `${serverlessConfig.basePath}${fn.path}`
+      ); // Remote paths also have environment
+      return localPath.test(event.path) || remotePath.test(event.path);
     });
 
   // Exactly one λ should match the above filtering.
@@ -44,16 +47,23 @@ const handler = async (event: any, context: Context) => {
     const lambdaFn = lambdaEvent.function;
 
     const localPath: Path = new Path(lambdaEvent.path);
-    const remotePath: Path = new Path(`${serverlessConfig.basePath}${lambdaEvent.path}`); // Remote paths also have environment
+    const remotePath: Path = new Path(
+      `${serverlessConfig.basePath}${lambdaEvent.path}`
+    ); // Remote paths also have environment
 
-    const lambdaPathParams = (localPath.test(event.path) || remotePath.test(event.path));
+    const lambdaPathParams =
+      localPath.test(event.path) || remotePath.test(event.path);
 
     Object.assign(event, { pathParameters: lambdaPathParams });
 
-    console.log(`HTTP ${event.httpMethod} ${event.path} -> λ ${lambdaEvent.name}`);
+    console.log(
+      `HTTP ${event.httpMethod} ${event.path} -> λ ${lambdaEvent.name}`
+    );
 
     // Explicit conversion because typescript can't figure it out
-    return lambdaFn(event, context, () => {return; });
+    return lambdaFn(event, context, () => {
+      return;
+    });
   }
 
   // If filtering results in less or more λ functions than expected, we return an error.
@@ -66,4 +76,4 @@ const handler = async (event: any, context: Context) => {
   throw new Error(`Route ${event.httpMethod} ${event.path} was not found.`);
 };
 
-export {handler};
+export { handler };

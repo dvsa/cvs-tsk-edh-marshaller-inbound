@@ -45,7 +45,7 @@ components:
 info:
   title: Synchronise Test Stations API
   description: This is the API spec for creating and modifying Test Stations
-  version: '1'
+  version: "1"
 paths:
   /test-stations/{testStationId}:
     post:
@@ -68,11 +68,11 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/testStation'
+              $ref: "#/components/schemas/testStation"
       responses:
-        '202':
+        "202":
           description: Accepted
-        '400':
+        "400":
           description: Rejected
     put:
       operationId: putTestStation
@@ -94,10 +94,9 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/testStation'
+              $ref: "#/components/schemas/testStation"
       responses:
-        '202':
+        "202":
           description: Accepted
-        '400':
+        "400":
           description: Rejected
-

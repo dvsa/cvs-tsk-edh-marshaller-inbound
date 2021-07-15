@@ -1,4 +1,4 @@
-import {Handler} from "aws-lambda";
+import { Handler } from "aws-lambda";
 
 export interface ISubSeg {
   addError(error: any): void;
@@ -24,5 +24,5 @@ export interface ITarget {
 }
 
 export interface ITargetConfig {
-  [target: string]: ITarget
+  [target: string]: ITarget;
 }

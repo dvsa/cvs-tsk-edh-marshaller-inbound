@@ -12,9 +12,9 @@ export enum ERROR {
 export enum CHANGE {
   UPDATE = "UPDATE",
   CREATE = "CREATE",
-  DELETE = "DELETE"
+  DELETE = "DELETE",
 }
 
 export enum TARGET {
-  TEST_STATIONS = "test-stations"
+  TEST_STATIONS = "test-stations",
 }
